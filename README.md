@@ -2,5 +2,5 @@
 22112
 
 <p align="center">
-  <img src="https://i.imgur.com/vHqLd5S.png" alt="xFaZe_mutx" width="100%">
+  <img src="https://imgur.com/a/WFnsixK" alt="xFaZe_mutx" width="100%">
 </p>
