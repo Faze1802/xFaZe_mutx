@@ -18,7 +18,7 @@
 
 | Projekt & Podgląd | Opis Techniczny |
 | :--- | :--- |
-| <img src="https://imgur.com/a/ebgSmBe"><br><b>⚡ System Talizmanów</b> | **Technologia:** Java (Spigot API).<br>Plugin dodaje unikalne przedmioty dające bonusy statystyk (siła, szybkość) w zależności od poziomu talizmanu. Posiada pełny system craftingu i GUI. |
+| <img src="https://i.imgur.com/ZXdhwt1.png"><br><b>⚡ System Talizmanów</b> | **Technologia:** Java (Spigot API).<br>Plugin dodaje unikalne przedmioty dające bonusy statystyk (siła, szybkość) w zależności od poziomu talizmanu. Posiada pełny system craftingu i GUI. |
 | <img src="https://i.imgur.com/vHqLd5S.png" width="300"><br><b>📦 Enderchest+</b> | **Technologia:** Java / MySQL.<br>Rozbudowany system skrzyń kresu z możliwością ulepszania pojemności za walutę serwerową. Dane są synchronizowane między serwerami (BungeeCord/Velocity). |
 | <img src="https://i.imgur.com/vHqLd5S.png" width="300"><br><b>🤖 Discord Bot Manager</b> | **Technologia:** Node.js / Discord.js.<br>Zaawansowany bot do zarządzania serwerem: integracja z bazą danych graczy, system weryfikacji oraz logowanie akcji administratorów. |
 
