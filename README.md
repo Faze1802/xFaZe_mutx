@@ -1,5 +1,4 @@
 # xFaZe_mutx
-22112
 
 <h1 align="center">xFaZe_mutx</h1>
 <p align="center"><strong>Java Developer</strong></p>
