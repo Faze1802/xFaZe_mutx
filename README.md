@@ -18,7 +18,7 @@
 
 | Projekt & Podgląd | Projekt & Podgląd | Projekt & Podgląd |
 | :--- | :--- | :--- |
-| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Autorski plugin na kowadło z (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Autorski plugin na enderchesty dla (FastGG)** | <img src="https://i.imgur.com/vHqLd5S.png" width="300"><br>**Autorski plugin na nagrody dla (FastGG)** |
+| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Autorski plugin na kowadło z (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Autorski plugin na enderchesty dla (FastGG)** | <img src="https://i.imgur.com/yd6tqF6.png" width="300"><br>**Autorski plugin na nagrody dla (FastGG)** |
 ---
 
 ### 🛠️ Pełny Stack Technologiczny
