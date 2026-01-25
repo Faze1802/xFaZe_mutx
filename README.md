@@ -19,7 +19,7 @@
 | Projekt & Podgląd | Opis Techniczny |
 | :--- | :--- |
 | <img src="https://i.imgur.com/ZXdhwt1.png"><br><b>Autorski plugin na kowadło z Krzysmc.pl</b> | **Technologia:** Java (Spigot API).<br>Plugin odwzrowany z servera Krzysmc.PL, rozbudowany plugin na kowadło z GUI. |
-| <img src="https://i.imgur.com/vHqLd5S.png" width="300"><br><b>📦 Enderchest+</b> | **Technologia:** Java / MySQL.<br>Rozbudowany system skrzyń kresu z możliwością ulepszania pojemności za walutę serwerową. Dane są synchronizowane między serwerami (BungeeCord/Velocity). |
+| <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br><b>Autorski plugin na Enderchesty</b> | **Technologia:** Java / MySQL.<br>Rozbudowany system enderchestu z możliwością wybierania enderchesta za range. |
 | <img src="https://i.imgur.com/vHqLd5S.png" width="300"><br><b>🤖 Discord Bot Manager</b> | **Technologia:** Node.js / Discord.js.<br>Zaawansowany bot do zarządzania serwerem: integracja z bazą danych graczy, system weryfikacji oraz logowanie akcji administratorów. |
 
 ---
