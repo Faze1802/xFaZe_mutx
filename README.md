@@ -11,7 +11,6 @@
   <img src="https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white">
 </p>
 
----
 
 ### 📂 Galeria Projektów
 <p align="center">Poniżej znajdziesz listę moich wybranych realizacji.</p>
@@ -19,7 +18,6 @@
 | Projekt & Podgląd | Projekt & Podgląd | Projekt & Podgląd | Projekt & Podgląd |
 | :--- | :--- | :--- | :--- |
 | <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Autorski plugin na kowadło z (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Autorski plugin na enderchesty dla (FastGG)** | <img src="https://i.imgur.com/yd6tqF6.png" width="300"><br>**Autorski plugin na nagrody dla (FastGG)** | <img src="https://i.imgur.com/fRMnr8m.png" width="300"><br>**Autorski plugin na listę rang dla (FastGG)** |
----
 
 ### 🛠️ Pełny Stack Technologiczny
 
@@ -28,7 +26,6 @@
 * **Bazy Danych:** MySQL, MongoDB, Redis.
 * **Narzędzia:** IntelliJ IDEA, Maven, Gradle, Git, Docker.
 
----
 
 ### 📊 Moje Statystyki GitHub
 <p align="center">
