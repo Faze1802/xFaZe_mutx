@@ -18,7 +18,7 @@
 
 | Projekt & Podgląd | Projekt & Podgląd |
 | :--- | :--- |
-| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**AdvancedAnvil (KrzysMC Style)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**MultiEnderChest Pro** |
+| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Autorski plugin na kowadło z (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Autorski plugin na enderchesty dla (FastGG)** | <img src="blob:https://imgur.com/b37d2797-831a-4dc1-8042-8ea3ca16a91c" width="300"><br>**Autorski plugin na nagrody dla (FastGG)** |
 | <img src="https://i.imgur.com/vHqLd5S.png" width="300"><br>**Discord Bot Manager** | |
 ---
 
