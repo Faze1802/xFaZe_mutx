@@ -16,8 +16,8 @@
 ### 📂 Galeria Projektów
 <p align="center">Poniżej znajdziesz listę moich wybranych realizacji.</p>
 
-| Projekt & Podgląd | Projekt & Podgląd |
-| :--- | :--- |
+| Projekt & Podgląd | Projekt & Podgląd | Projekt & Podgląd |
+| :--- | :--- | :--- |
 | <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Autorski plugin na kowadło z (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Autorski plugin na enderchesty dla (FastGG)** | <img src="https://i.imgur.com/vHqLd5S.png" width="300"><br>**Autorski plugin na nagrody dla (FastGG)** |
 ---
 
