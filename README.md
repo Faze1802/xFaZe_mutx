@@ -16,9 +16,9 @@
 ### 📂 Galeria Projektów
 <p align="center">Poniżej znajdziesz listę moich wybranych realizacji.</p>
 
-| Projekt & Podgląd | Projekt & Podgląd | Projekt & Podgląd |
-| :--- | :--- | :--- |
-| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Autorski plugin na kowadło z (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Autorski plugin na enderchesty dla (FastGG)** | <img src="https://i.imgur.com/yd6tqF6.png" width="300"><br>**Autorski plugin na nagrody dla (FastGG)** | <img src="https://i.imgur.com/fRMnr8m.png" width="300"><br>**Autorski plugin na liste rang dla (FastGG)** |
+| Projekt & Podgląd | Projekt & Podgląd | Projekt & Podgląd | Projekt & Podgląd |
+| :--- | :--- | :--- | :--- |
+| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Autorski plugin na kowadło z (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Autorski plugin na enderchesty dla (FastGG)** | <img src="https://i.imgur.com/yd6tqF6.png" width="300"><br>**Autorski plugin na nagrody dla (FastGG)** | <img src="https://i.imgur.com/fRMnr8m.png" width="300"><br>**Autorski plugin na listę rang dla (FastGG)** |
 ---
 
 ### 🛠️ Pełny Stack Technologiczny
