@@ -15,10 +15,11 @@
 ### 📂 Galeria Projektów
 <p align="center">Poniżej znajdziesz listę moich wybranych realizacji.</p>
 
-| Projekt #1 | Projekt #2 | Projekt & Podgląd |
+| Projekt #1 | Projekt #2 | Projekt #3 |
 | :---: | :---: | :---: |
-| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"><br>**Plugin na kowadło (Krzysmc.pl)** | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"><br>**Plugin na enderchesty (FastGG)** | <img src="https://i.imgur.com/yd6tqF6.png" width="300"><br>**Plugin na nagrody (FastGG)** |
-| <img src="https://i.imgur.com/fRMnr8m.png" width="300"><br>**Plugin na listę rang (FastGG)** | <img src="https://i.imgur.com/6aeXy2o.png" width="300"><br>**Plugin na rtp (FastGG)** | |
+| <img src="https://i.imgur.com/ZXdhwt1.png" width="300"> | <img src="https://i.imgur.com/Iw9AOuc.png" width="300"> | <img src="https://i.imgur.com/yd6tqF6.png" width="300"> |
+| **Projekt #4** | **Projekt #5** | |
+| <img src="https://i.imgur.com/fRMnr8m.png" width="300"> | <img src="https://i.imgur.com/6aeXy2o.png" width="300"> | |
 
 
 ### 🛠️ Pełny Stack Technologiczny
