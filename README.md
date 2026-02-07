@@ -31,7 +31,7 @@
 | Projekt #1 | Projekt #2 | Projekt #3 |
 | :---: | :---: | :---: |
 | <img src="https://i.imgur.com/ZXdhwt1.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/Iw9AOuc.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/yd6tqF6.png" width="250" style="border-radius:10px;"> |
-| **Kowadło (Krzysmc)** | **Enderchesty (FastGG)** | **Nagrody (FastGG)** |
+| **System kowadła z krzysmc.pl dla (Cosmiscode)** | **Enderchesty (FastGG)** | **Nagrody (FastGG)** |
 
 | Projekt #4 | Projekt #5 | Projekt #6 |
 | :---: | :---: | :---: |
