@@ -18,53 +18,39 @@
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
   <img src="https://img.shields.io/badge/Apache_Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white">
-  <img src="https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
 </p>
 
 ---
 
 ## 📂 Galeria Wybranych Projektów
-<p align="center">Kliknij w obrazek, aby powiększyć podgląd realizacji.</p>
+<p align="center">Zbiór autorskich rozwiązań i realizacji komercyjnych.</p>
 
 <div align="center">
 
 | Projekt #1 | Projekt #2 | Projekt #3 |
 | :---: | :---: | :---: |
-| <img src="https://i.imgur.com/ZXdhwt1.png" width="280" style="border-radius:10px;"> | <img src="https://i.imgur.com/Iw9AOuc.png" width="280" style="border-radius:10px;"> | <img src="https://i.imgur.com/yd6tqF6.png" width="280" style="border-radius:10px;"> |
+| <img src="https://i.imgur.com/ZXdhwt1.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/Iw9AOuc.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/yd6tqF6.png" width="250" style="border-radius:10px;"> |
 | **Kowadło (Krzysmc)** | **Enderchesty (FastGG)** | **Nagrody (FastGG)** |
 
-| Projekt #4 | Projekt #5 |
-| :---: | :---: |
-| <img src="https://i.imgur.com/fRMnr8m.png" width="280" style="border-radius:10px;"> | <img src="https://i.imgur.com/6aeXy2o.png" width="280" style="border-radius:10px;"> |
-| **Lista rang (FastGG)** | **System RTP (FastGG)** |
+| Projekt #4 | Projekt #5 | Projekt #6 |
+| :---: | :---: | :---: |
+| <img src="https://i.imgur.com/fRMnr8m.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/6aeXy2o.png" width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/280x150/1a1a1a/ffffff?text=System+Gildii" width="250" style="border-radius:10px;"> |
+| **Lista rang (FastGG)** | **System RTP (FastGG)** | **System Gildii (MegaCore)** |
 
 </div>
 
 ---
 
-## 🤝 Współpraca i kontakt
-<p align="center">
-  Realizuję zarówno mniejsze zlecenia, jak i długoterminowe projekty.<br>
-  <b>Jasna komunikacja • Rzetelna wycena • Wsparcie techniczne</b>
-</p>
-
-<p align="center">
-  <a href="https://discordapp.com/users/1324715078515429451">
-    <img src="https://img.shields.io/badge/KONTAKT_PRZEZ_DISCORD-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=333" />
-  </a>
-</p>
-
----
-
 ## 🛠️ Stack Technologiczny
 
-<table>
+<table align="center">
   <tr>
     <td width="50%" valign="top">
       <h3>💻 Języki i Backend</h3>
       <ul>
         <li><b>Java:</b> Spigot, Paper, Velocity, NMS</li>
-        <li><b>JS/TS:</b> Node.js, Express</li>
+        <li><b>JS/TS:</b> Node.js, Express, React</li>
         <li><b>Scripting:</b> Python, Lua</li>
       </ul>
     </td>
@@ -81,10 +67,24 @@
 
 ---
 
-## 📊 Aktywność na GitHub
+## 📊 Aktywność i Statystyki
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Faze1802&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" width="400">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Faze1802&layout=compact&theme=tokyonight&hide_border=true" width="300">
+  <img src="https://github-readme-stats.vercel.app/api?username=Faze1802&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" height="170">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Faze1802&layout=compact&theme=tokyonight&hide_border=true" height="170">
+</p>
+
+---
+
+## 🤝 Współpraca i kontakt
+<p align="center">
+  Realizuję zarówno mniejsze zlecenia, jak i długoterminowe projekty.<br>
+  <b>Jasna komunikacja • Rzetelna wycena • Wsparcie techniczne</b>
+</p>
+
+<p align="center">
+  <a href="https://discordapp.com/users/1324715078515429451">
+    <img src="https://img.shields.io/badge/KONTAKT_PRZEZ_DISCORD-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=333" />
+  </a>
 </p>
 
 <p align="right">
