@@ -35,8 +35,8 @@
 
 | Projekt #4 | Projekt #5 | Projekt #6 |
 | :---: | :---: | :---: |
-| <img src="https://i.imgur.com/fRMnr8m.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/6aeXy2o.png" width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/280x150/1a1a1a/ffffff?text=System+Gildii" width="250" style="border-radius:10px;"> |
-| **Lista rang (FastGG)** | **System RTP (FastGG)** | **System Gildii (MegaCore)** |
+| <img src="https://i.imgur.com/fRMnr8m.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/6aeXy2o.png" width="250" style="border-radius:10px;"> | <img src="hblob:https://imgur.com/9870ea88-ccb5-48eb-ad09-270e3450d2c3" width="250" style="border-radius:10px;"> |
+| **Lista rang (FastGG)** | **System RTP (FastGG)** | **System Sektorów (HypeMC)** |
 
 </div>
 
