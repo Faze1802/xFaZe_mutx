@@ -38,6 +38,11 @@
 | <img src="https://i.imgur.com/fRMnr8m.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/6aeXy2o.png" width="250" style="border-radius:10px;"> | <img src="https://i.imgur.com/lTJj10M.png" width="250" style="border-radius:10px;"> |
 | **Lista rang (FastGG)** | **System RTP (FastGG)** | **System Sektorów (HypeMC)** |
 
+| Projekt #7 | Projekt #8 | Projekt #9 |
+| :---: | :---: | :---: |
+| <img src="https://i.imgur.com/vHq4R7m.png" width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/250x140?text=Wkrótce..." width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/250x140?text=Wkrótce..." width="250" style="border-radius:10px;"> |
+| **System Hologramów - Górnik** | **Nadchodzący projekt** | **Nadchodzący projekt** |
+
 </div>
 
 ---
