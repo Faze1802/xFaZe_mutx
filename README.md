@@ -40,8 +40,8 @@
 
 | Projekt #7 | Projekt #8 | Projekt #9 |
 | :---: | :---: | :---: |
-| <img src="https://i.imgur.com/vHq4R7m.png" width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/250x140?text=Wkrótce..." width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/250x140?text=Wkrótce..." width="250" style="border-radius:10px;"> |
-| **System Hologramów - Górnik** | **Nadchodzący projekt** | **Nadchodzący projekt** |
+| <img src="https://i.imgur.com/Qdi4U6S.png" width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/250x140?text=Wkrótce..." width="250" style="border-radius:10px;"> | <img src="https://via.placeholder.com/250x140?text=Wkrótce..." width="250" style="border-radius:10px;"> |
+| **System Górnika (HYPEMC)** | **Nadchodzący projekt** | **Nadchodzący projekt** |
 
 </div>
 
