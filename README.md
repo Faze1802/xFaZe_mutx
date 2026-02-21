@@ -1,87 +1,95 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0078d4&height=250&section=header&text=xFaZe_mutx&fontSize=80&animation=fadeIn&fontAlignY=35" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0078d4&height=280&section=header&text=xFaZe_mutx&fontSize=90&animation=fadeIn&fontAlignY=35&desc=Fullstack%20Developer%20|%20Minecraft%20Systems%20Architect&descSize=25&descAlignY=60" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Level-99_Developer-0078d4?style=for-the-badge&logo=minecraft&logoColor=white" />
   <a href="https://discordapp.com/users/1324715078515429451">
-    <img src="https://img.shields.io/badge/Discord-Kontakt-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+    <img src="https://img.shields.io/badge/Discord-Kontakt_Bezpośredni-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
   </a>
+  <img src="https://img.shields.io/badge/Status-Dostępny_na_projekty-0078d4?style=for-the-badge" />
 </p>
 
 <div align="center">
 
-# 🚀 Senior Systems & Minecraft Developer
-*Specjalista od wysokowydajnych rozwiązań serwerowych i NMS.*
+### ⚡ Crafting High-Performance Systems for Global Minecraft Servers
+*Specjalizuję się w architekturze systemów rozproszonych, optymalizacji silników i nowoczesnych technologiach webowych.*
 
 </div>
 
 ---
 
-## 🛠️ Arsenał i Poziomy Doświadczenia
-<p align="center">
-  <b>Java (NMS / Paper / Velocity)</b><br>
-  <img src="https://geps.dev/progress/95?dangerColor=0078d4&warningColor=0078d4&successColor=0078d4" alt="Java Progress"><br>
-  <b>Frontend (React / TypeScript)</b><br>
-  <img src="https://geps.dev/progress/75?dangerColor=0078d4&warningColor=0078d4&successColor=0078d4" alt="Frontend Progress"><br>
-  <b>Backend & Databases (Node.js / Redis / MySQL)</b><br>
-  <img src="https://geps.dev/progress/85?dangerColor=0078d4&warningColor=0078d4&successColor=0078d4" alt="Backend Progress">
-</p>
+## 🛠️ Stack Technologiczny & Kompetencje
 
 <table align="center">
   <tr>
-    <td align="center" width="50%">
-      <h3>🌟 Tech Stack</h3>
-      <img src="https://skillicons.dev/icons?i=java,spring,maven,ts,nodejs,react,py,mysql,mongodb,redis,docker,git,linux,idea,vscode" /><br>
+    <td align="left" width="50%">
+      <h3>💻 Backend & Systemy MC</h3>
+      <img src="https://skillicons.dev/icons?i=java,spring,maven,gradle,mysql,mongodb,redis,linux" /><br>
+      • <b>NMS & Packets:</b> Zaawansowane manipulacje protokołem.<br>
+      • <b>Distributed Systems:</b> Sektory, Velocity, Synchronizacja Redis.<br>
+      • <b>Database:</b> Optymalizacja zapytań i cache'owanie danych.
+    </td>
+    <td align="left" width="50%">
+      <h3>🌐 Fullstack Web</h3>
+      <img src="https://skillicons.dev/icons?i=ts,nodejs,express,react,nextjs,tailwind,docker,git" /><br>
+      • <b>Frontend:</b> Skalowalne UI w React/Next.js.<br>
+      • <b>Backend:</b> RESTful API i WebSockety.<br>
+      • <b>Infrastructure:</b> Konteneryzacja (Docker) i środowiska Linux.
     </td>
   </tr>
 </table>
 
 ---
 
-## 📊 Statystyki Mistrzowskie
+## 📊 Analityka i Efektywność Kodowania
+
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Faze1802&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&title_color=0078d4&icon_color=0078d4" height="180">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Faze1802&layout=compact&theme=tokyonight&hide_border=true&title_color=0078d4" height="180">
+  <img src="https://github-readme-stats.vercel.app/api?username=Faze1802&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&title_color=0078d4&icon_color=0078d4&bg_color=1a1b27" height="190">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Faze1802&layout=compact&theme=tokyonight&hide_border=true&title_color=0078d4&bg_color=1a1b27" height="190">
 </div>
 
-### 🏆 Osiągnięcia GitHuba
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Faze1802&theme=tokyonight&no-bg=true&column=4&margin-w=15" alt="Trophies" />
-</p>
-
-### 📈 Aktywność Kodowania
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Faze1802&theme=tokyonight&hide_border=true&sideNums=0078d4&stroke=0078d4&fire=0078d4" alt="GitHub Streak" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Faze1802&theme=tokyonight" width="100%">
 </p>
 
 ---
 
-## 📂 Portfolio Projektowe
+## 📂 Wybrane Realizacje Premium
+
 <div align="center">
 
-| ⚡ Sektory & NMS | 🛡️ UI & Systemy |
+| 🌌 Zaawansowane Sektory (NMS) | 💎 Systemy Ekonomii |
 | :--- | :--- |
-| <img src="https://i.imgur.com/lTJj10M.png" width="380"><br>**System Sektorów** | <img src="https://i.imgur.com/ZXdhwt1.png" width="380"><br>**Customowe Kowadło** |
-| <img src="https://i.imgur.com/Qdi4U6S.png" width="380"><br>**System Górnika** | <img src="https://i.imgur.com/fRMnr8m.png" width="380"><br>**Zarządzanie Rangami** |
+| <img src="https://i.imgur.com/lTJj10M.png" width="400" style="border-radius:10px;"><br><sub>Wielowątkowa synchronizacja danych między instancjami.</sub> | <img src="https://i.imgur.com/Qdi4U6S.png" width="400" style="border-radius:10px;"><br><sub>Górnik z unikalnym systemem levelowania i progresji.</sub> |
+
+| 🛠️ Customowe Interfejsy | 🛡️ Administracja i Rangi |
+| :--- | :--- |
+| <img src="https://i.imgur.com/ZXdhwt1.png" width="400" style="border-radius:10px;"><br><sub>Kowadło oparte na wirtualnych kontenerach i pakietach.</sub> | <img src="https://i.imgur.com/fRMnr8m.png" width="400" style="border-radius:10px;"><br><sub>Złożony system uprawnień zintegrowany z bazą danych.</sub> |
 
 </div>
 
 ---
 
-## 🤝 Współpraca
-> "Nie piszę tylko pluginów. Tworzę ekosystemy, które wytrzymują tysiące graczy."
+## ⚙️ Mój Workflow
 
-* ✨ **Czysty Kod:** Zgodny z zasadami SOLID i DRY.
-* 🚀 **Performance:** Profilowanie Spark/Aikar's Flags to u mnie podstawa.
-* 📞 **Support:** Nie zostawiam klienta po oddaniu projektu.
+> **Analiza Potrzeb** ➜ **Planowanie Architektury** ➜ **Kodowanie (TDD)** ➜ **Testy Wydajnościowe (Spark/Replay)** ➜ **Deployment**
 
+1.  **Profilowanie:** Każdy kod przechodzi testy pod kątem zużycia Ticków (MSPT).
+2.  **Skalowalność:** Moje rozwiązania są gotowe na 50, 500 i 5000 graczy.
+3.  **Dokumentacja:** Dostarczasz gotowy produkt wraz z instrukcją konfiguracji.
+
+---
+
+## 🤝 Kontakt i Współpraca
 <p align="center">
+  <i>"Kod to poezja, jeśli piszesz go z myślą o wydajności."</i><br><br>
   <a href="https://discordapp.com/users/1324715078515429451">
-    <img src="https://img.shields.io/badge/Otwórz_Ticket_na_Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+    <img src="https://img.shields.io/badge/Rozpocznij_Projekt_na_Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
   </a>
 </p>
 
+---
+
 <p align="right">
-  <img src="https://komarev.com/ghpvc/?username=Faze1802&color=0078d4&style=flat-square&label=PROFIL_ODWIEDZONY" alt="Licznik">
+  <img src="https://komarev.com/ghpvc/?username=Faze1802&color=0078d4&style=flat-square&label=PROFILE_VIEWS" alt="Licznik">
 </p>
