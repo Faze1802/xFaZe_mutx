@@ -18,8 +18,6 @@
 
 </div>
 
----
-
 ## 🛠️ Arsenał Technologiczny
 
 <table align="center">
@@ -42,8 +40,6 @@
   </tr>
 </table>
 
----
-
 ## 📂 Galeria Realizacji (Portfolio)
 <p align="center">Wyselekcjonowane systemy stworzone dla topowych projektów.</p>
 
@@ -62,15 +58,12 @@
   <sub><i>Zrealizowane dla: CosmicCode, FastGG, HypeMC i innych.</i></sub>
 </p>
 
----
 
 ## 📊 Analityka GitHub
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=Faze1802&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&title_color=0078d4&icon_color=0078d4" height="180">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Faze1802&layout=compact&theme=tokyonight&hide_border=true&title_color=0078d4" height="180">
 </p>
-
----
 
 ## 🤝 Współpraca
 > "Koduję rozwiązania, które nie tylko działają, ale wytrzymują tysiące graczy online."
@@ -84,8 +77,6 @@
     <img src="https://img.shields.io/badge/Zatrudnij_mnie_na_Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
   </a>
 </p>
-
----
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=rect&color=0078d4&height=30&section=footer" />
