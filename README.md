@@ -19,7 +19,7 @@
 
 <div align="center">
 
-# 🚀 Senior Minecraft Systems & Fullstack Developer
+# 🚀 Senior Developer & Fullstack Developer
 *Transformuję wizje w wydajny kod. Specjalista od systemów rozproszonych i NMS.*
 
 [`Java / NMS`](#) • [`Sektory / Velocity`](#) • [`React / Node.js`](#) • [`Bazy Danych High-Load`](#)
