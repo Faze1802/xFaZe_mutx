@@ -9,6 +9,14 @@
   <img src="https://img.shields.io/badge/Status-Dostępny_na_zlecenia-success?style=for-the-badge" />
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/%E2%8F%B3_STATUS_PORTFOLIO-AKTUALIZACJA_W_TOKU-orange?style=for-the-badge&logo=gitbook&logoColor=white" />
+  <br>
+  <sub><b>Już wkrótce:</b> Aktualizacja portfolio oraz nowe, zaawansowane systemy! 🚀</sub>
+</p>
+
+---
+
 <div align="center">
 
 # 🚀 Senior Minecraft Systems & Fullstack Developer
