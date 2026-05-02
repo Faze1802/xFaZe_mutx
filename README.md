@@ -73,6 +73,24 @@
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Faze1802&layout=compact&theme=tokyonight&hide_border=true&title_color=0078d4" height="180">
 </p>
 
+---
+
+## 🚀 Nadchodzące Aktualizacje (Roadmap 2024/25)
+<p align="left">
+  <i>Moje portfolio jest w trakcie gruntownego odświeżania. Oto co pojawi się w najbliższym czasie:</i>
+</p>
+
+- [ ] **Nowy System Sektorów v3.0** – jeszcze mniejsze zużycie zasobów i natychmiastowa synchronizacja (ETD: Grudzień).
+- [ ] **Dedykowany Dashboard Web** – panel do zarządzania serwerem Minecraft z poziomu przeglądarki (React + Socket.io).
+- [ ] **Open Source Tools** – udostępnię kilka moich autorskich bibliotek do optymalizacji NMS.
+- [ ] **Case Studies** – szczegółowe opisy architektury dla projektów takich jak HypeMC i FastGG.
+
+> [!IMPORTANT]
+> **Planowana data pełnej aktualizacji profilu:** `Wkrótce (styczeń 2025)`
+> Jeśli masz pytania o konkretne systemy przed ich publikacją – uderzaj śmiało na Discord!
+
+---
+
 ## 🤝 Współpraca
 > "Koduję rozwiązania, które nie tylko działają, ale wytrzymują tysiące graczy online."
 
