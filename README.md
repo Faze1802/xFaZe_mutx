@@ -26,27 +26,23 @@
 
 </div>
 
-## 🛠️ Arsenał Technologiczny
+---
 
-<table align="center">
-  <tr>
-    <td align="center" width="33%">
-      <h3>🌟 Core</h3>
-      <img src="https://skillicons.dev/icons?i=java,spring,maven" /><br>
-      <sub>Spigot/Paper, NMS, Velocity</sub>
-    </td>
-    <td align="center" width="33%">
-      <h3>🌐 Web & Script</h3>
-      <img src="https://skillicons.dev/icons?i=ts,nodejs,react,py" /><br>
-      <sub>Modern Web Applications</sub>
-    </td>
-    <td align="center" width="33%">
-      <h3>💾 DevOps & Data</h3>
-      <img src="https://skillicons.dev/icons?i=mysql,mongodb,redis,docker,git" /><br>
-      <sub>Skalowanie i Architektura</sub>
-    </td>
-  </tr>
-</table>
+## 🛠️ NADCHODZI POTĘŻNA AKTUALIZACJA PORTFOLIO (V2) 🏗️
+
+> [!CAUTION]
+> **To, co widzisz powyżej, to zaledwie 20% moich zrealizowanych projektów.** 
+
+Przygotowuję kompletną przebudowę profilu, która wkrótce ujrzy światło dzienne:
+
+*   📸 **Galeria Realizacji 2.0:** Dodam ponad 15 nowych galerii z autorskich pluginów (zaawansowane GUI, systemy walki, innowacyjne mechaniki RPG).
+*   ✨ **Nowy Design:** Całe portfolio przejdzie wizualny lifting – będzie czytelniej, nowocześniej i z pełną dokumentacją systemów.
+*   💻 **Case Studies:** Dokładne screeny z działania moich systemów "od zaplecza" (optymalizacja kodu, bazy danych, integracje).
+*   🔥 **Unikalne Systemy:** Zaprezentuję projekty, które do tej pory były dostępne tylko dla największych sieci serwerów.
+
+**🚀 Zaglądaj regularnie – nowa odsłona xFaZe_mutx nadchodzi!**
+
+---
 
 ## 📂 Galeria Realizacji (Portfolio)
 <p align="center">Wyselekcjonowane systemy stworzone dla topowych projektów.</p>
