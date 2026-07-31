@@ -1,0 +1,1189 @@
+# /**
+#  * © xfaze_mutx, 2025–2026. Wszelkie prawa zastrzeżone.
+#  * Zabrania się sprzedaży lub dystrybucji bez zgody autora. Naruszenie tych warunków może skutkować postępowaniem prawnym zgodnie z art. 78 Ustawy o prawie autorskim i prawach pokrewnych, dotyczącym naruszeń praw autorskich w formie cyfrowej.
+#  */
+
+import asyncio
+import datetime
+import io
+import json
+import os
+import discord
+from discord import app_commands
+from discord.ext import commands
+
+from .info_boosty import (
+    BOOSTOW_COLOR as PANEL_COLOR,
+    BULLET_EMOJI,
+    log_error,
+    log_success,
+)
+
+# ─────────────────────────────────────────────
+#  KONFIGURACJA
+# ─────────────────────────────────────────────
+
+CACHE_FILE             = "tickets_cache.json"
+TICKET_DATA_FILE       = "tickets_data.json"
+CALLOUT_COOLDOWN_FILE  = "ticket_callouts.json"
+
+PANEL_CHANNEL_ID       = 1522983214937931917
+TICKET_CATEGORY_ID     = 1522990697433661641
+LOGS_CHANNEL_ID        = 1522983214937931917
+TRANSCRIPTS_CHANNEL_ID = 1522983214937931917
+
+STAFF_ROLE_IDS = [
+    1501987845177475205,
+]
+
+TICKET_BANNER_URL = "https://i.imgur.com/B5tKS7C.png"
+
+TICKET_MARKER        = "💜︲LEANARTS.PL × SYSTEM TICKETÓW"
+NEW_TICKET_MARKER    = "💜︲LEANARTS.PL × NOWY TICKET"
+SETTINGS_MARKER      = "💜︲LEANARTS.PL × USTAWIENIA TICKETA"
+CONFIRM_ORDER_MARKER = "💜︲LEANARTS.PL × POTWIERDZENIE ZAMÓWIENIA"
+CALLOUT_MARKER       = "💜︲LEANARTS.PL × WEZWANIE NA TICKET"
+TAKEOVER_MARKER      = "💜︲LEANARTS.PL × PRZEJĘCIE TICKETA"
+TRANSCRIPT_MARKER    = "💜︲LEANARTS.PL × TRANSKRYPT TICKETA"
+DM_MARKER            = "💜︲LEANARTS.PL × TRANSKRYPT TWOJEGO TICKETA"
+DM_CALLOUT_MARKER    = "💜︲LEANARTS.PL × WEZWANIE NA TICKET"
+LOG_MARKER           = "💜︲LEANARTS.PL × LOGI TICKETÓW"
+
+TICKET_COPYRIGHT     = "-# **💜︲© 2026 LEANARTS.PL × Wszelkie Prawa Zastrzeżone!**"
+
+STATUS_OPEN   = "🟠"
+STATUS_ACTIVE = "🟢"
+STATUS_CLOSED = "🔴"
+
+# ─────────────────────────────────────────────
+#  KATEGORIE TICKETÓW I PYTANIA FORMULARZY
+# ─────────────────────────────────────────────
+
+TICKET_CATEGORIES = {
+    "grafika": {
+        "label": "Zakup grafiki",
+        "emoji": "🎨",
+        "channel_prefix": "grafika",
+        "description": "Złóż zamówienie na grafikę",
+        "questions": [
+            ("Rodzaj grafiki", "np. Logo, Baner, Szablon"),
+            ("Typ płatności", "np. BLIK, PayPal, PSC"),
+            ("Twój Budżet", "np. 50 zł"),
+            ("Opis zamówienia", "Opisz dokładnie co ma znajdować się na grafice"),
+        ]
+    },
+    "montaz": {
+        "label": "Zakup Montażu",
+        "emoji": "🎬",
+        "channel_prefix": "montaz",
+        "description": "Złóż zamówienie na montaż wideo",
+        "questions": [
+            ("Rodzaj montażu", "np. TikTok, Shorts, Film YT"),
+            ("Typ płatności", "np. BLIK, PayPal, PSC"),
+            ("Twój Budżet", "np. 100 zł"),
+            ("Opis zamówienia", "Opisz dokładnie czego oczekujesz od montażu"),
+        ]
+    },
+    "animacja": {
+        "label": "Zakup Animacji",
+        "emoji": "✨",
+        "channel_prefix": "animacja",
+        "description": "Złóż zamówienie na animację",
+        "questions": [
+            ("Rodzaj animacji", "np. Animacja Logo, Intro, Outro"),
+            ("Typ płatności", "np. BLIK, PayPal, PSC"),
+            ("Twój Budżet", "np. 150 zł"),
+            ("Opis zamówienia", "Opisz szczegółowo animację"),
+        ]
+    },
+    "bot": {
+        "label": "Zakup Bota Discord",
+        "emoji": "🤖",
+        "channel_prefix": "bot",
+        "description": "Złóż zamówienie na dedykowanego bota",
+        "questions": [
+            ("Typ płatności", "np. BLIK, PayPal, PSC"),
+            ("Twój Budżet", "np. 200 zł"),
+            ("Spis funkcji", "Wypisz główne funkcje bota"),
+            ("Opis zamówienia", "Opisz szczegóły zamówienia"),
+        ]
+    },
+    "paczka": {
+        "label": "Zakup Paczki",
+        "emoji": "📦",
+        "channel_prefix": "paczka",
+        "description": "Złóż zamówienie na paczkę zasobów",
+        "questions": [
+            ("Rodzaj paczki", "np. Paczka graficzna, paczka botów"),
+            ("Typ płatności", "np. BLIK, PayPal, PSC"),
+        ]
+    },
+    "premium": {
+        "label": "Zakup Strefy Premium",
+        "emoji": "⭐",
+        "channel_prefix": "premium",
+        "description": "Zakup dostęp do strefy premium",
+        "questions": [
+            ("Typ płatności", "np. BLIK, PayPal, PSC"),
+        ]
+    },
+    "wspolpraca": {
+        "label": "Współpraca",
+        "emoji": "🤝",
+        "channel_prefix": "wspolpraca",
+        "description": "Zgłoś chęć współpracy z serwerem",
+        "questions": [
+            ("Rodzaj współpracy", "np. Promocja, Partnerstwo"),
+            ("Jakie mamy korzyści ze współpracy z tobą", "Opisz co zyskamy na współpracy"),
+            ("Opis współpracy", "Opisz szczegóły propozycji"),
+        ]
+    },
+    "nagroda": {
+        "label": "Odbiór nagrody",
+        "emoji": "🎁",
+        "channel_prefix": "nagroda",
+        "description": "Odbierz nagrodę z konkursu lub eventu",
+        "questions": [
+            ("Opis ticketa", "Podaj z jakiego eventu/konkursu odbierasz nagrodę"),
+        ]
+    },
+    "pomoc": {
+        "label": "Potrzebuje pomocy",
+        "emoji": "❓",
+        "channel_prefix": "pomoc",
+        "description": "Uzyskaj pomoc od naszego zespołu",
+        "questions": [
+            ("Opis ticketa", "Opisz szczegółowo w czym potrzebujesz pomocy"),
+        ]
+    }
+}
+
+# ─────────────────────────────────────────────
+#  FUNKCJE POMOCNICZE I PLIKI ZAPISU
+# ─────────────────────────────────────────────
+
+def load_callout_cooldowns() -> dict:
+    if os.path.exists(CALLOUT_COOLDOWN_FILE):
+        try:
+            with open(CALLOUT_COOLDOWN_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+def save_callout_cooldowns(data: dict) -> None:
+    try:
+        with open(CALLOUT_COOLDOWN_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        log_error(f"Błąd przy zapisie callout cooldown: {e}")
+
+def _load_ticket_data() -> dict:
+    if os.path.exists(TICKET_DATA_FILE):
+        try:
+            with open(TICKET_DATA_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+def _save_ticket_data(data: dict) -> None:
+    try:
+        with open(TICKET_DATA_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        log_error(f"Błąd przy zapisie danych ticketów: {e}")
+
+def get_ticket_entry(channel_id: int) -> dict | None:
+    return _load_ticket_data().get(str(channel_id))
+
+def set_ticket_entry(channel_id: int, creator_id: int, category_key: str) -> None:
+    data = _load_ticket_data()
+    data[str(channel_id)] = {
+        "creator_id": creator_id,
+        "category_key": category_key,
+        "claimed_by": None,
+        "created_at": datetime.datetime.now().isoformat(),
+    }
+    _save_ticket_data(data)
+
+def claim_ticket_entry(channel_id: int, staff_id: int) -> None:
+    data = _load_ticket_data()
+    key = str(channel_id)
+    if key in data:
+        data[key]["claimed_by"] = staff_id
+        _save_ticket_data(data)
+
+def delete_ticket_entry(channel_id: int) -> None:
+    data = _load_ticket_data()
+    if str(channel_id) in data:
+        data.pop(str(channel_id))
+        _save_ticket_data(data)
+
+def _is_staff(member: discord.Member) -> bool:
+    if member.guild_permissions.administrator:
+        return True
+    member_role_ids = {role.id for role in getattr(member, "roles", [])}
+    return any(rid in member_role_ids for rid in STAFF_ROLE_IDS)
+
+def _mention(user_id: int) -> str:
+    return f"<@{user_id}>"
+
+async def _set_channel_status(channel: discord.TextChannel, status: str) -> None:
+    name = channel.name
+    if "︲" in name:
+        name = name.split("︲", 1)[1]
+    new_name = f"{status}︲{name}"
+    try:
+        await channel.edit(name=new_name, reason=f"Status ticketa: {status}")
+    except discord.Forbidden:
+        log_error(f"Brak uprawnień do zmiany nazwy kanału {channel.name}")
+    except discord.HTTPException as e:
+        log_error(f"Błąd HTTP przy zmianie nazwy kanału: {e}")
+
+def _make_layout_view(marker: str, body_text: str, file_names: list[str] | None = None) -> discord.ui.LayoutView:
+    view = discord.ui.LayoutView(timeout=None)
+    container = discord.ui.Container(accent_color=PANEL_COLOR)
+    container.add_item(discord.ui.TextDisplay(f"```{marker}```"))
+    container.add_item(discord.ui.TextDisplay(body_text))
+
+    if file_names:
+        container.add_item(discord.ui.Separator())
+        for fname in file_names:
+            container.add_item(discord.ui.File(media=f"attachment://{fname}"))
+
+    if TICKET_BANNER_URL:
+        container.add_item(discord.ui.Separator())
+        container.add_item(discord.ui.MediaGallery(discord.MediaGalleryItem(TICKET_BANNER_URL)))
+
+    container.add_item(discord.ui.Separator())
+    container.add_item(discord.ui.TextDisplay(TICKET_COPYRIGHT))
+    view.add_item(container)
+    return view
+
+# ─────────────────────────────────────────────
+#  GENEROWANIE TRANSKRYPTÓW (HTML)
+# ─────────────────────────────────────────────
+
+def generate_html_transcript(channel_name, channel_id, creator, category_label, messages, current_time):
+    html = (
+        "<!DOCTYPE html><html lang='pl'><head><meta charset='UTF-8'>"
+        f"<title>Transkrypt - {channel_name}</title>"
+        "<style>"
+        "body{font-family:'Segoe UI',sans-serif;background:#0d0e12;color:#e1e1e6;margin:0;padding:20px}"
+        ".wrap{max-width:900px;margin:0 auto;background:#16171d;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.5)}"
+        ".hdr{background:linear-gradient(135deg, #7c3aed, #4f46e5);color:#fff;padding:30px}"
+        ".hdr h1{margin:0;font-size:22px}"
+        ".meta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;font-size:13px}"
+        ".body{padding:30px}"
+        ".msg{margin-bottom:14px;padding:14px;background:#1e1f26;border-left:4px solid #7c3aed;border-radius:6px}"
+        ".mh{display:flex;justify-content:space-between;font-size:12px;color:#a1a1aa;margin-bottom:6px}"
+        ".ma{font-weight:600;color:#c084fc}.mt{color:#71717a}.mc{color:#e4e4e7;line-height:1.5;word-wrap:break-word}"
+        ".att{margin-top:8px;font-size:12px}.att a{color:#a855f7;text-decoration:none}"
+        ".ftr{background:#111216;padding:14px 30px;text-align:center;font-size:12px;color:#71717a;border-top:1px solid #27272a}"
+        "</style></head><body><div class='wrap'>"
+        "<div class='hdr'><h1>💜 LEANARTS.PL — TRANSKRYPT TICKETA</h1>"
+        f"<div class='meta'>"
+        f"<div><strong>Kanał:</strong> #{channel_name}</div>"
+        f"<div><strong>ID:</strong> {channel_id}</div>"
+        f"<div><strong>Twórca:</strong> {creator}</div>"
+        f"<div><strong>Kategoria:</strong> {category_label}</div>"
+        "</div></div><div class='body'>"
+    )
+    for message in messages:
+        ts = message.created_at.strftime('%d.%m.%Y %H:%M:%S')
+        au = message.author.name
+        ct = message.content.replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+        html += f"<div class='msg'><div class='mh'><span class='ma'>{au}</span><span class='mt'>{ts}</span></div><div class='mc'>{ct}</div>"
+        for att in message.attachments:
+            html += f"<div class='att'>📎 <a href='{att.url}' target='_blank'>{att.filename}</a></div>"
+        html += "</div>"
+    html += f"</div><div class='ftr'>💜 © 2026 LEANARTS.PL • {current_time}</div></div></body></html>"
+    return html
+
+# ─────────────────────────────────────────────
+#  SELECT MENU I MODALE TICKETÓW
+# ─────────────────────────────────────────────
+
+class TicketSelect(discord.ui.Select):
+    def __init__(self):
+        options = [
+            discord.SelectOption(
+                label=cfg["label"],
+                value=key,
+                emoji=cfg["emoji"],
+                description=cfg["description"]
+            )
+            for key, cfg in TICKET_CATEGORIES.items()
+        ]
+        super().__init__(
+            placeholder="📓︲Wybierz kategorię ticketa z listy!",
+            min_values=1,
+            max_values=1,
+            options=options,
+            custom_id="ticket_select_menu",
+        )
+
+    async def callback(self, interaction: discord.Interaction):
+        category_key = self.values[0]
+        category     = TICKET_CATEGORIES[category_key]
+        modal        = TicketQuestionModal(interaction.guild, category_key, category)
+        await interaction.response.send_modal(modal)
+
+
+class TicketQuestionModal(discord.ui.Modal):
+    def __init__(self, guild: discord.Guild, category_key: str, category: dict):
+        self.guild        = guild
+        self.category_key = category_key
+        self.category     = category
+        super().__init__(title=f"Formularz: {category['label']}", timeout=300)
+
+        for idx, (question, placeholder) in enumerate(category['questions'][:5]):
+            self.add_item(discord.ui.TextInput(
+                label=question,
+                placeholder=placeholder,
+                style=discord.TextStyle.paragraph if idx == len(category['questions'])-1 else discord.TextStyle.short,
+                required=True,
+                custom_id=f"question_{idx}"
+            ))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        answers = {}
+        for idx, (question, _) in enumerate(self.category['questions'][:5]):
+            try:
+                answers[question] = self.children[idx].value
+            except Exception:
+                pass
+
+        user         = interaction.user
+        channel_name = f"🟠︲{self.category['channel_prefix']}-{user.name.lower()[:15]}"
+
+        overwrites = {
+            self.guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            user:                    discord.PermissionOverwrite(read_messages=True, send_messages=True),
+            self.guild.me:           discord.PermissionOverwrite(read_messages=True, send_messages=True)
+        }
+
+        staff_found = False
+        for role_id in STAFF_ROLE_IDS:
+            role = self.guild.get_role(role_id)
+            if role:
+                overwrites[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
+                staff_found = True
+        if not staff_found:
+            log_error("Nie odnaleziono zdefiniowanych rang Staffu w gildii!")
+
+        category_channel = self.guild.get_channel(TICKET_CATEGORY_ID)
+
+        try:
+            channel = await self.guild.create_text_channel(
+                name=channel_name,
+                overwrites=overwrites,
+                category=category_channel if isinstance(category_channel, discord.CategoryChannel) else None,
+                reason=f"Ticket od {user.name}"
+            )
+
+            set_ticket_entry(channel.id, user.id, self.category_key)
+
+            body_text = (
+                f"{user.mention}\n\n"
+                f"{BULLET_EMOJI}︲Dziękujemy za otwarcie ticketa!\n"
+                f"{BULLET_EMOJI}︲Kategoria: **{self.category['label']}**\n"
+                f"{BULLET_EMOJI}︲Użytkownik: {user.mention}\n"
+                f"{BULLET_EMOJI}︲ID Ticketa: `{channel.id}`\n\n"
+                f"> **Twoje odpowiedzi w formularzu:**\n"
+            )
+            for question, answer in answers.items():
+                body_text += f"{BULLET_EMOJI}︲**{question}**\n```{answer}```\n"
+
+            body_text += (
+                f"\n> **Informacje:**\n"
+                f"{BULLET_EMOJI}︲⏱️ Czas odpowiedzi: 1-24h (zależy od obciążenia)\n"
+                f"{BULLET_EMOJI}︲💰 Po zatwierdzeniu szczegółów podamy wycenę i metody płatności\n"
+                f"{BULLET_EMOJI}︲✅ Zespół przeanalizuje Twoje zamówienie/sprawę\n\n"
+                f"{BULLET_EMOJI}︲Użyj przycisków poniżej, aby zarządzać ticketem."
+            )
+
+            ticket_panel = TicketActionPanel(body_text)
+            await channel.send(view=ticket_panel)
+
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Ticket został pomyślnie utworzony!\n> Kanał: {channel.mention}",
+                ephemeral=True
+            )
+
+            logs_channel = interaction.client.get_channel(LOGS_CHANNEL_ID)
+            if logs_channel:
+                log_body = (
+                    f"{BULLET_EMOJI}︲Otwarcie nowego ticketa:\n"
+                    f"{BULLET_EMOJI}︲Użytkownik: {user.mention} (`{user.id}`)\n"
+                    f"{BULLET_EMOJI}︲Kategoria: **{self.category['label']}**\n"
+                    f"{BULLET_EMOJI}︲Kanał: {channel.mention}\n"
+                    f"{BULLET_EMOJI}︲ID Ticketa: `{channel.id}`"
+                )
+                await logs_channel.send(view=_make_layout_view(LOG_MARKER, log_body))
+
+            log_success(f"Ticket utworzony: {channel.name} przez {user}")
+
+        except discord.Forbidden:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Bot nie posiada uprawnień do tworzenia kanałów!", ephemeral=True
+            )
+            log_error("Brak uprawnień do tworzenia kanału")
+        except Exception as e:
+            log_error(f"Błąd przy tworzeniu ticketa: {e}")
+
+# ─────────────────────────────────────────────
+#  USTAWIENIA TICKETÓW (DROPDOWN + MODALE)
+# ─────────────────────────────────────────────
+
+class TicketSettingsSelect(discord.ui.Select):
+    def __init__(self):
+        options = [
+            discord.SelectOption(
+                label="Dodaj osobę",
+                value="add_user",
+                emoji="➕",
+                description="Dodaj użytkownika do tego ticketa"
+            ),
+            discord.SelectOption(
+                label="Usuń osobę",
+                value="remove_user",
+                emoji="➖",
+                description="Usuń użytkownika z tego ticketa"
+            ),
+            discord.SelectOption(
+                label="Zmień nazwę kanału",
+                value="rename_channel",
+                emoji="📝",
+                description="Zmień nazwę bieżącego kanału"
+            ),
+            discord.SelectOption(
+                label="Potwierdź zamówienie",
+                value="confirm_order",
+                emoji="✅",
+                description="Wysyła podsumowanie zrealizowanego zamówienia"
+            ),
+        ]
+        super().__init__(
+            placeholder="⚙️︲Wybierz jedną z dostępnych akcji",
+            min_values=1,
+            max_values=1,
+            options=options,
+            custom_id="ticket_settings_select_menu"
+        )
+
+    async def callback(self, interaction: discord.Interaction):
+        val = self.values[0]
+        channel = interaction.channel
+
+        if val == "add_user":
+            await interaction.response.send_modal(AddUserModal(channel))
+        elif val == "remove_user":
+            await interaction.response.send_modal(RemoveUserModal(channel))
+        elif val == "rename_channel":
+            await interaction.response.send_modal(RenameChannelModal(channel))
+        elif val == "confirm_order":
+            await interaction.response.send_modal(ConfirmOrderModal(channel))
+
+
+class TicketSettingsView(discord.ui.LayoutView):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+        container = discord.ui.Container(accent_color=PANEL_COLOR)
+        container.add_item(discord.ui.TextDisplay(f"```{SETTINGS_MARKER}```"))
+        container.add_item(discord.ui.TextDisplay("⚙️︲Wybierz **akcję**, którą chcesz wykonać na tym tickecie."))
+        container.add_item(discord.ui.Separator())
+
+        action_row = discord.ui.ActionRow()
+        action_row.add_item(TicketSettingsSelect())
+        container.add_item(action_row)
+
+        container.add_item(discord.ui.Separator())
+        container.add_item(discord.ui.TextDisplay(TICKET_COPYRIGHT))
+
+        self.add_item(container)
+
+
+class RenameChannelModal(discord.ui.Modal, title="Zmień nazwę kanału"):
+    new_name_input = discord.ui.TextInput(
+        label="Nowa nazwa kanału",
+        placeholder="np. zamowienie-gotowe",
+        custom_id="new_channel_name_input",
+        required=True
+    )
+
+    def __init__(self, channel: discord.TextChannel):
+        super().__init__()
+        self.channel = channel
+
+    async def on_submit(self, interaction: discord.Interaction):
+        new_name = self.new_name_input.value.strip().lower().replace(" ", "-")
+        try:
+            await self.channel.edit(name=new_name, reason=f"Zmiana nazwy przez {interaction.user}")
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Nazwa kanału została zmieniona na: `{new_name}`", ephemeral=True
+            )
+        except discord.Forbidden:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Brak uprawnień do zmiany nazwy kanału.", ephemeral=True
+            )
+        except Exception as e:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Błąd podczas zmiany nazwy: `{e}`", ephemeral=True
+            )
+
+
+class ConfirmOrderModal(discord.ui.Modal, title="Potwierdź zamówienie"):
+    kwota = discord.ui.TextInput(
+        label="Kwota (ile wydano)",
+        placeholder="np. 150 zł",
+        required=True
+    )
+    przedmiot = discord.ui.TextInput(
+        label="Przedmiot / Na co wydano",
+        placeholder="np. Logo + Baner Discord",
+        required=True
+    )
+    realizator = discord.ui.TextInput(
+        label="Zamówienie zrealizowane przez",
+        placeholder="np. @realizator lub ID / nazwa (domyślnie Ty)",
+        required=False
+    )
+    znizka = discord.ui.TextInput(
+        label="Zniżka",
+        placeholder="np. BRAK / 10% / 20%",
+        default="BRAK",
+        required=False
+    )
+    kaucja = discord.ui.TextInput(
+        label="Kaucja",
+        placeholder="np. 0 zł / 50 zł",
+        default="0 zł",
+        required=False
+    )
+
+    def __init__(self, channel: discord.TextChannel):
+        super().__init__()
+        self.channel = channel
+
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True)
+
+        entry = get_ticket_entry(self.channel.id)
+        creator_id = entry.get("creator_id") if entry else None
+        created_at_str = entry.get("created_at") if entry else None
+
+        if created_at_str:
+            dt_opened = datetime.datetime.fromisoformat(created_at_str).strftime('%d.%m.%Y %H:%M')
+        else:
+            dt_opened = "Nieznana"
+
+        dt_finished = datetime.datetime.now().strftime('%d.%m.%Y %H:%M')
+
+        realizator_str = self.realizator.value.strip() or interaction.user.mention
+        znizka_str = self.znizka.value.strip() or "BRAK"
+        kaucja_str = self.kaucja.value.strip() or "0 zł"
+        kwota_str  = self.kwota.value.strip()
+        przedmiot_str = self.przedmiot.value.strip()
+
+        client_mention = _mention(creator_id) if creator_id else f"{self.channel.name}"
+
+        confirm_body = (
+            f"> **✅ ZAMÓWIENIE ZOSTAŁO ZREALIZOWANE!**\n\n"
+            f"{BULLET_EMOJI}︲**Klient:** {client_mention}\n"
+            f"{BULLET_EMOJI}︲**Zrealizowane przez:** {realizator_str}\n"
+            f"{BULLET_EMOJI}︲**Zamówiony przedmiot/usługa:** `{przedmiot_str}`\n"
+            f"{BULLET_EMOJI}︲**Wydana kwota:** `{kwota_str}`\n"
+            f"{BULLET_EMOJI}︲**Zniżka:** `{znizka_str}`\n"
+            f"{BULLET_EMOJI}︲**Kaucja:** `{kaucja_str}`\n\n"
+            f"> **Informacje o czasie:**\n"
+            f"{BULLET_EMOJI}︲**Data otwarcia ticketa:** `{dt_opened}`\n"
+            f"{BULLET_EMOJI}︲**Data zrealizowania:** `{dt_finished}`"
+        )
+
+        confirm_view = _make_layout_view(CONFIRM_ORDER_MARKER, confirm_body)
+        await self.channel.send(view=confirm_view)
+
+        await interaction.followup.send(
+            f"{BULLET_EMOJI}︲Podsumowanie zamówienia zostało pomyślnie wysłane na kanał!",
+            ephemeral=True
+        )
+
+# ─────────────────────────────────────────────
+#  PANEL AKCJI TICKETU (PRZYCISKI ZARZĄDZANIA)
+# ─────────────────────────────────────────────
+
+class TicketActionPanel(discord.ui.LayoutView):
+    def __init__(self, body_text: str | None = None):
+        super().__init__(timeout=None)
+
+        container = discord.ui.Container(accent_color=PANEL_COLOR)
+
+        if body_text is not None:
+            container.add_item(discord.ui.TextDisplay(f"```{NEW_TICKET_MARKER}```"))
+            container.add_item(discord.ui.TextDisplay(body_text))
+            container.add_item(discord.ui.Separator())
+
+        btn_close = discord.ui.Button(
+            label="Zamknij Ticket", style=discord.ButtonStyle.red,
+            emoji="🔒", custom_id="close_ticket_btn"
+        )
+        btn_callout = discord.ui.Button(
+            label="Wezwij na Ticket", style=discord.ButtonStyle.blurple,
+            emoji="🔔", custom_id="callout_ticket_btn"
+        )
+        btn_settings = discord.ui.Button(
+            label="Ustawienia", style=discord.ButtonStyle.grey,
+            emoji="⚙️", custom_id="settings_ticket_btn"
+        )
+        btn_takeover = discord.ui.Button(
+            label="Przejmij Ticket", style=discord.ButtonStyle.grey,
+            emoji="👑", custom_id="takeover_ticket_btn"
+        )
+
+        btn_close.callback    = self.close_ticket
+        btn_callout.callback  = self.callout_ticket
+        btn_settings.callback = self.open_settings
+        btn_takeover.callback = self.takeover_ticket
+
+        container.add_item(discord.ui.ActionRow(btn_close, btn_callout, btn_settings, btn_takeover))
+
+        if TICKET_BANNER_URL:
+            container.add_item(discord.ui.Separator())
+            container.add_item(discord.ui.MediaGallery(discord.MediaGalleryItem(TICKET_BANNER_URL)))
+
+        container.add_item(discord.ui.Separator())
+        container.add_item(discord.ui.TextDisplay(TICKET_COPYRIGHT))
+
+        self.add_item(container)
+
+    async def _get_ticket_context(self, interaction: discord.Interaction):
+        channel = interaction.channel
+        entry = get_ticket_entry(channel.id)
+        if entry is None:
+            return None
+
+        creator_id   = entry.get("creator_id")
+        category_key = entry.get("category_key")
+        claimed_by   = entry.get("claimed_by")
+
+        creator = interaction.guild.get_member(creator_id)
+        if creator is None:
+            try:
+                creator = await interaction.guild.fetch_member(creator_id)
+            except Exception:
+                creator = None
+
+        return channel, creator, creator_id, category_key, claimed_by
+
+    async def open_settings(self, interaction: discord.Interaction):
+        if not _is_staff(interaction.user):
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Tylko administracja ma dostęp do ustawień ticketa.", ephemeral=True
+            )
+            return
+        await interaction.response.send_message(view=TicketSettingsView(), ephemeral=True)
+
+    async def close_ticket(self, interaction: discord.Interaction):
+        ctx = await self._get_ticket_context(interaction)
+        if ctx is None:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Ten kanał nie jest zarejestrowany jako ticket.", ephemeral=True
+            )
+            return
+        channel, creator, creator_id, category_key, claimed_by = ctx
+
+        if interaction.user.id != creator_id and not _is_staff(interaction.user):
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Tylko twórca ticketa lub administracja może go zamknąć.", ephemeral=True
+            )
+            return
+
+        await interaction.response.defer(ephemeral=True)
+
+        warnings: list[str] = []
+        current_time = datetime.datetime.now().strftime('%d.%m.%Y %H:%M')
+
+        try:
+            messages = [m async for m in channel.history(limit=None, oldest_first=True)]
+        except Exception as e:
+            await interaction.followup.send(
+                f"{BULLET_EMOJI}︲Błąd przy pobieraniu historii wiadomości: `{e}`", ephemeral=True
+            )
+            return
+
+        category_label = TICKET_CATEGORIES.get(category_key, {}).get('label', 'Nieznana kategoria')
+
+        try:
+            html_content = generate_html_transcript(
+                channel.name, channel.id, creator or _mention(creator_id),
+                category_label, messages, current_time
+            )
+
+            txt_content = (
+                f"```💜︲LEANARTS.PL × TRANSKRYPT TICKETA```\n"
+                f"Kanał: #{channel.name}\nID: {channel.id}\n"
+                f"Twórca: {creator if creator else _mention(creator_id)} ({creator_id})\n"
+                f"Kategoria: {category_label}\n"
+                f"Data zamknięcia: {current_time}\n\n"
+            )
+            for msg in messages:
+                ts = msg.created_at.strftime('%d.%m.%Y %H:%M:%S')
+                txt_content += f"[{ts}] {msg.author.name}: {msg.content}\n"
+                for att in msg.attachments:
+                    txt_content += f"  📎 {att.filename} ({att.url})\n"
+                txt_content += "\n"
+        except Exception as e:
+            await interaction.followup.send(
+                f"{BULLET_EMOJI}︲Błąd generowania transkryptu: `{e}`", ephemeral=True
+            )
+            return
+
+        html_fname = f"ticket_{channel.id}_{current_time.replace(':', '-').replace(' ', '_')}.html"
+        txt_fname  = html_fname.replace('.html', '.txt')
+
+        html_bytes = html_content.encode('utf-8')
+        txt_bytes  = txt_content.encode('utf-8')
+
+        def _files():
+            return [
+                discord.File(io.BytesIO(html_bytes), filename=html_fname),
+                discord.File(io.BytesIO(txt_bytes), filename=txt_fname)
+            ]
+
+        transcripts_channel = interaction.client.get_channel(TRANSCRIPTS_CHANNEL_ID)
+        if transcripts_channel:
+            tr_body = (
+                f"{BULLET_EMOJI}︲Ticket został zamknięty.\n"
+                f"{BULLET_EMOJI}︲Twórca: {creator.mention if creator else _mention(creator_id)}\n"
+                f"{BULLET_EMOJI}︲Kategoria: **{category_label}**\n"
+                f"{BULLET_EMOJI}︲ID Ticketa: `{channel.id}`\n"
+                f"{BULLET_EMOJI}︲Data: `{current_time}`"
+            )
+            if claimed_by:
+                tr_body += f"\n{BULLET_EMOJI}︲Przejęty przez: {_mention(claimed_by)}"
+            try:
+                await transcripts_channel.send(
+                    view=_make_layout_view(TRANSCRIPT_MARKER, tr_body, file_names=[html_fname, txt_fname]),
+                    files=_files()
+                )
+            except Exception as e:
+                warnings.append(f"Nie udało się wysłać transkryptu na kanał: `{e}`")
+
+        if creator:
+            try:
+                dm_body = (
+                    f"{BULLET_EMOJI}︲Twój ticket został zamknięty.\n"
+                    f"{BULLET_EMOJI}︲Kategoria: **{category_label}**\n"
+                    f"{BULLET_EMOJI}︲ID Ticketa: `{channel.id}`\n"
+                    f"{BULLET_EMOJI}︲Data zamknięcia: `{current_time}`\n\n"
+                    f"{BULLET_EMOJI}︲Poniżej znajduje się transkrypt Twojej rozmowy."
+                )
+                await creator.send(
+                    view=_make_layout_view(DM_MARKER, dm_body, file_names=[html_fname, txt_fname]),
+                    files=_files()
+                )
+            except discord.Forbidden:
+                warnings.append(f"Nie można wysłać PV do {creator.mention} (zablokowane DM)")
+            except Exception as e:
+                warnings.append(f"Błąd wysyłania DM: `{e}`")
+
+        logs_channel = interaction.client.get_channel(LOGS_CHANNEL_ID)
+        if logs_channel:
+            log_body = (
+                f"{BULLET_EMOJI}︲Zamknięcie ticketa:\n"
+                f"{BULLET_EMOJI}︲Zamknął: {interaction.user.mention} (`{interaction.user.id}`)\n"
+                f"{BULLET_EMOJI}︲Twórca: {creator.mention if creator else _mention(creator_id)}\n"
+                f"{BULLET_EMOJI}︲Kategoria: **{category_label}**\n"
+                f"{BULLET_EMOJI}︲ID Ticketa: `{channel.id}`"
+            )
+            try:
+                await logs_channel.send(view=_make_layout_view(LOG_MARKER, log_body))
+            except Exception as e:
+                warnings.append(f"Błąd przy wysyłaniu logu: `{e}`")
+
+        if warnings:
+            await interaction.followup.send(
+                f"{BULLET_EMOJI}︲Ticket zostaje zamknięty, uwaga:\n" + "\n".join(f"> {w}" for w in warnings),
+                ephemeral=True
+            )
+        else:
+            await interaction.followup.send(
+                f"{BULLET_EMOJI}︲Ticket zamknięty! Kanał zostanie usunięty za 5 sekund.", ephemeral=True
+            )
+
+        await _set_channel_status(channel, STATUS_CLOSED)
+        await asyncio.sleep(5)
+        try:
+            await channel.delete(reason="Zamknięty ticket")
+            delete_ticket_entry(channel.id)
+            log_success(f"Ticket zamknięty: {channel.name}")
+        except discord.Forbidden:
+            log_error(f"Nie można usunąć kanału {channel.name}")
+
+    async def callout_ticket(self, interaction: discord.Interaction):
+        await trigger_callout(interaction)
+
+    async def takeover_ticket(self, interaction: discord.Interaction):
+        if not _is_staff(interaction.user):
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Tylko administracja może przejąć ticket.", ephemeral=True
+            )
+            return
+
+        ctx = await self._get_ticket_context(interaction)
+        if ctx is None:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Kanał nie jest zarejestrowany jako ticket.", ephemeral=True
+            )
+            return
+        channel, old_creator, old_creator_id, category_key, _prev_claimed_by = ctx
+
+        await interaction.response.defer(ephemeral=True)
+
+        current_time = datetime.datetime.now().strftime('%d.%m.%Y %H:%M')
+        category_label = TICKET_CATEGORIES.get(category_key, {}).get('label', 'Nieznana kategoria')
+
+        try:
+            if old_creator:
+                await channel.set_permissions(old_creator, read_messages=True, send_messages=True)
+            await channel.set_permissions(interaction.user, read_messages=True, send_messages=True)
+            await _set_channel_status(channel, STATUS_ACTIVE)
+
+            claim_ticket_entry(channel.id, interaction.user.id)
+
+            takeover_body = (
+                f"{BULLET_EMOJI}︲Ticket został przejęty przez członka zespołu!\n"
+                f"{BULLET_EMOJI}︲Twórca: {old_creator.mention if old_creator else _mention(old_creator_id)}\n"
+                f"{BULLET_EMOJI}︲Opiekun: {interaction.user.mention}\n"
+                f"{BULLET_EMOJI}︲Czas przejęcia: `{current_time}`"
+            )
+            await channel.send(view=_make_layout_view(TAKEOVER_MARKER, takeover_body))
+
+            await interaction.followup.send(
+                f"{BULLET_EMOJI}︲Przejęto ticket! Jesteś nowym opiekunem.", ephemeral=True
+            )
+
+            logs_channel = interaction.client.get_channel(LOGS_CHANNEL_ID)
+            if logs_channel:
+                log_body = (
+                    f"{BULLET_EMOJI}︲Przejęcie ticketa:\n"
+                    f"{BULLET_EMOJI}︲Administrator: {interaction.user.mention} (`{interaction.user.id}`)\n"
+                    f"{BULLET_EMOJI}︲Twórca: {old_creator.mention if old_creator else _mention(old_creator_id)}\n"
+                    f"{BULLET_EMOJI}︲Kategoria: **{category_label}**\n"
+                    f"{BULLET_EMOJI}︲ID Ticketa: `{channel.id}`"
+                )
+                await logs_channel.send(view=_make_layout_view(LOG_MARKER, log_body))
+
+            log_success(f"Ticket {channel.name} przejęty przez {interaction.user}")
+
+        except discord.Forbidden:
+            await interaction.followup.send(
+                f"{BULLET_EMOJI}︲Brak uprawnień do zmiany uprawnień kanału.", ephemeral=True
+            )
+        except Exception as e:
+            log_error(f"Błąd przy przejmowaniu ticketa: {e}")
+
+# ─────────────────────────────────────────────
+#  FUNKCJA WEZWANIA (CALLOUT)
+# ─────────────────────────────────────────────
+
+async def trigger_callout(interaction: discord.Interaction):
+    channel = interaction.channel
+    entry = get_ticket_entry(channel.id)
+    if entry is None:
+        await interaction.response.send_message(
+            f"{BULLET_EMOJI}︲Ten kanał nie jest zarejestrowany jako ticket.", ephemeral=True
+        )
+        return
+
+    creator_id = entry.get("creator_id")
+    creator = interaction.guild.get_member(creator_id)
+    if creator is None:
+        try:
+            creator = await interaction.guild.fetch_member(creator_id)
+        except Exception:
+            creator = None
+
+    if not _is_staff(interaction.user):
+        await interaction.response.send_message(
+            f"{BULLET_EMOJI}︲Tylko zespół wsparcia może wysyłać wezwania.", ephemeral=True
+        )
+        return
+
+    if creator_id == interaction.user.id:
+        await interaction.response.send_message(
+            f"{BULLET_EMOJI}︲Nie możesz wezwać samego siebie.", ephemeral=True
+        )
+        return
+
+    cooldowns  = load_callout_cooldowns()
+    channel_id = str(channel.id)
+
+    if channel_id in cooldowns:
+        last_callout = datetime.datetime.fromisoformat(cooldowns[channel_id])
+        next_callout = last_callout + datetime.timedelta(hours=24)
+        if datetime.datetime.now() < next_callout:
+            time_left = next_callout - datetime.datetime.now()
+            hours, remainder = divmod(int(time_left.total_seconds()), 3600)
+            minutes          = remainder // 60
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Możesz ponownie wysłać wezwanie za **{hours}h {minutes}m**", ephemeral=True
+            )
+            return
+
+    current_time          = datetime.datetime.now().strftime('%d.%m.%Y %H:%M')
+    cooldowns[channel_id] = datetime.datetime.now().isoformat()
+    save_callout_cooldowns(cooldowns)
+
+    callout_body = (
+        f"{BULLET_EMOJI}︲{interaction.user.mention} wezwał na ticket!\n"
+        f"{BULLET_EMOJI}︲Czas: `{current_time}`\n"
+        f"{BULLET_EMOJI}︲Prosimy o odpowiedź w kanale."
+    )
+    await channel.send(view=_make_layout_view(CALLOUT_MARKER, callout_body))
+
+    if creator:
+        try:
+            dm_body = (
+                f"{BULLET_EMOJI}︲Zostałeś wezwany na Twój ticket!\n"
+                f"{BULLET_EMOJI}︲Kanał: #{channel.name}\n"
+                f"{BULLET_EMOJI}︲Wezwał: {interaction.user.mention}\n"
+                f"{BULLET_EMOJI}︲Czas: `{current_time}`\n\n"
+                f"{BULLET_EMOJI}︲Kliknij aby przejść do kanału: {channel.mention}"
+            )
+            await creator.send(view=_make_layout_view(DM_CALLOUT_MARKER, dm_body))
+        except discord.Forbidden:
+            pass
+
+    await interaction.response.send_message(
+        f"{BULLET_EMOJI}︲Wezwanie zostało wysłane!", ephemeral=True
+    )
+
+# ─────────────────────────────────────────────
+#  MODALE ZARZĄDZANIA UŻYTKOWNIKAMI
+# ─────────────────────────────────────────────
+
+class AddUserModal(discord.ui.Modal, title="Dodaj użytkownika do ticketa"):
+    user_input = discord.ui.TextInput(
+        label="Nazwa użytkownika lub ID",
+        placeholder="np. @username lub ID",
+        custom_id="add_user_input"
+    )
+
+    def __init__(self, channel: discord.TextChannel):
+        super().__init__()
+        self.channel = channel
+
+    async def on_submit(self, interaction: discord.Interaction):
+        guild = self.channel.guild
+        raw   = self.user_input.value.strip()
+        user  = None
+        try:
+            user = await guild.fetch_member(int(raw)) if raw.isdigit() else \
+                   discord.utils.find(lambda m: m.name == raw or m.display_name == raw, guild.members)
+        except Exception:
+            pass
+
+        if not user:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Nie znaleziono użytkownika: `{raw}`", ephemeral=True
+            )
+            return
+
+        try:
+            await self.channel.set_permissions(user, read_messages=True, send_messages=True)
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Użytkownik {user.mention} został dodany do ticketa!", ephemeral=True
+            )
+            await self.channel.send(
+                f"{BULLET_EMOJI}︲{interaction.user.mention} dodał użytkownika {user.mention} do ticketa."
+            )
+        except discord.Forbidden:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Brak uprawnień do dodania użytkownika.", ephemeral=True
+            )
+
+
+class RemoveUserModal(discord.ui.Modal, title="Usuń użytkownika z ticketa"):
+    user_input = discord.ui.TextInput(
+        label="Nazwa użytkownika lub ID",
+        placeholder="np. @username lub ID",
+        custom_id="remove_user_input"
+    )
+
+    def __init__(self, channel: discord.TextChannel):
+        super().__init__()
+        self.channel = channel
+
+    async def on_submit(self, interaction: discord.Interaction):
+        guild = self.channel.guild
+        raw   = self.user_input.value.strip()
+        user  = None
+        try:
+            user = await guild.fetch_member(int(raw)) if raw.isdigit() else \
+                   discord.utils.find(lambda m: m.name == raw or m.display_name == raw, guild.members)
+        except Exception:
+            pass
+
+        if not user:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Nie znaleziono użytkownika: `{raw}`", ephemeral=True
+            )
+            return
+
+        try:
+            await self.channel.set_permissions(user, read_messages=False, send_messages=False)
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Użytkownik {user.mention} został usunięty z ticketa!", ephemeral=True
+            )
+            await self.channel.send(
+                f"{BULLET_EMOJI}︲{interaction.user.mention} usunął użytkownika {user.mention} z ticketa."
+            )
+        except discord.Forbidden:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Brak uprawnień do usunięcia użytkownika.", ephemeral=True
+            )
+
+# ─────────────────────────────────────────────
+#  GŁÓWNY PANEL TICKETÓW (LAYOUT VIEW V2)
+# ─────────────────────────────────────────────
+
+class TicketDisplayView(discord.ui.LayoutView):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+        container = discord.ui.Container(accent_color=PANEL_COLOR)
+        container.add_item(discord.ui.TextDisplay(f"```{TICKET_MARKER}```"))
+
+        body_content = (
+            f"> **Potrzebujesz pomocy lub chcesz złożyć zamówienie?**\n"
+            f"> Wybierz odpowiednią kategorię z listy poniżej!\n\n"
+            f"{BULLET_EMOJI}︲Wybierz kategorię z rozwijanej listy\n"
+            f"{BULLET_EMOJI}︲Wypełnij krótki formularz zamówienia/sprawy\n"
+            f"{BULLET_EMOJI}︲Otrzymasz prywatny kanał z odpowiedzią zespołu\n"
+            f"{BULLET_EMOJI}︲Poczekaj na odpowiedź realizatora (1–24h)"
+        )
+        container.add_item(discord.ui.TextDisplay(body_content))
+        container.add_item(discord.ui.Separator())
+
+        action_row = discord.ui.ActionRow()
+        action_row.add_item(TicketSelect())
+        container.add_item(action_row)
+
+        if TICKET_BANNER_URL:
+            container.add_item(discord.ui.Separator())
+            container.add_item(discord.ui.MediaGallery(discord.MediaGalleryItem(TICKET_BANNER_URL)))
+
+        container.add_item(discord.ui.Separator())
+        container.add_item(discord.ui.TextDisplay(TICKET_COPYRIGHT))
+
+        self.add_item(container)
+
+
+async def send_ticket_panel(bot: commands.Bot):
+    channel = bot.get_channel(PANEL_CHANNEL_ID)
+    if not channel:
+        return None, f"Nie znaleziono kanału `{PANEL_CHANNEL_ID}`."
+
+    try:
+        view = TicketDisplayView()
+        await channel.send(view=view)
+        log_success(f"Panel ticketów wysłany na #{channel.name}")
+        return channel, None
+    except discord.HTTPException as e:
+        log_error(f"Nie udało się wysłać panelu ticketów: {e}")
+        return channel, str(e)
+
+# ─────────────────────────────────────────────
+#  COG TICKETS & SLASH COMMANDS
+# ─────────────────────────────────────────────
+
+class Tickets(commands.Cog):
+    def __init__(self, bot: commands.Bot):
+        self.bot   = bot
+        self.cache = self._load_cache()
+
+    def _load_cache(self) -> dict:
+        if os.path.exists(CACHE_FILE):
+            try:
+                with open(CACHE_FILE, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                return {}
+        return {}
+
+    def _save_cache(self) -> None:
+        try:
+            with open(CACHE_FILE, "w", encoding="utf-8") as f:
+                json.dump(self.cache, f, indent=4)
+        except Exception as e:
+            log_error(f"Błąd przy zapisie cache: {e}")
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        await self._send_or_update_panel()
+
+    async def _send_or_update_panel(self):
+        channel = self.bot.get_channel(PANEL_CHANNEL_ID)
+        if channel is None:
+            log_error(f"Nie znaleziono kanału panelu (ID: {PANEL_CHANNEL_ID})")
+            return
+
+        guild     = channel.guild
+        view      = TicketDisplayView()
+        cache_key = f"panel_{guild.id}"
+        found_msg = None
+
+        if cache_key in self.cache:
+            try:
+                found_msg = await channel.fetch_message(int(self.cache[cache_key]))
+            except Exception:
+                self.cache.pop(cache_key, None)
+
+        if not found_msg:
+            async for message in channel.history(limit=50):
+                if message.author == self.bot.user and message.components:
+                    found_msg = message
+                    self.cache[cache_key] = str(message.id)
+                    self._save_cache()
+                    break
+
+        if found_msg:
+            await found_msg.edit(view=view)
+        else:
+            msg = await channel.send(view=view)
+            self.cache[cache_key] = str(msg.id)
+            self._save_cache()
+
+    # Slash command /ustawienia
+    @app_commands.command(name="ustawienia", description="Otwiera panel ustawień bieżącego ticketa.")
+    async def ustawienia_cmd(self, interaction: discord.Interaction):
+        entry = get_ticket_entry(interaction.channel.id)
+        if not entry:
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Ta komenda może być użyta tylko na kanale ticketa.", ephemeral=True
+            )
+            return
+
+        if not _is_staff(interaction.user):
+            await interaction.response.send_message(
+                f"{BULLET_EMOJI}︲Nie masz uprawnień do zarządzania tym ticketem.", ephemeral=True
+            )
+            return
+
+        await interaction.response.send_message(view=TicketSettingsView(), ephemeral=True)
+
+    # Slash command /wezwij
+    @app_commands.command(name="wezwij", description="Wezwij osobę, która utworzyła ten ticket.")
+    async def wezwij_cmd(self, interaction: discord.Interaction):
+        await trigger_callout(interaction)
+
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Tickets(bot))
+    bot.add_view(TicketDisplayView())
+    bot.add_view(TicketActionPanel())
+    bot.add_view(TicketSettingsView())
